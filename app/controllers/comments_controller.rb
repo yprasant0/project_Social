@@ -53,16 +53,11 @@ class CommentsController < ApplicationController
   end
 
   def likes
-    comment = Comment.find_by(params[:comment])   
-    @likes = comment.likes.create(value: true)   unless comment.like.present?
+    comment = Comment.find_by_id(params[:comment])  
+    @likes = comment.likes.create(value: true, user_id: current_user.id)   unless comment.likes.where(user_id: current_user.id).present?
     respond_to do |format|
-      if @like.save
         format.html { redirect_to posts_url, notice: "like was successfully added." }
         format.json { head :no_content }
-    else
-        format.html { redirect_to posts_url, notice: "already have been liked." }
-        format.json { head :no_content }
-      end
     end
   end
 

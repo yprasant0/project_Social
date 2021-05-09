@@ -22,12 +22,12 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     if params[:submit] == "draft"
-      added_attr = {user_id: current_user.id, state: "draft", visible: false}
-      @post = Post.new(post_params.merge(added_attr))
+      added_attr = {state: "draft", visible: false}
+      @post = current_user.posts.new(post_params.merge(added_attr))
       message = "Post was saved as draft"
     else
-      added_attr = {user_id: current_user.id}
-      @post = Post.new(post_params.merge(added_attr))
+      added_attr = {state: "published"}
+      @post = current_user.posts.new(post_params.merge(added_attr))
       message = "Post was successfully created"
     end
     respond_to do |format|
@@ -71,15 +71,15 @@ class PostsController < ApplicationController
   end
 
   def likes
-    post = Post.find_by(params[:post])   
-    @likes = post.likes.create(value: true)   unless post.like.present?
+    post = Post.find_by_id(params[:post])   
+    @likes = post.likes.create(value: true, user_id: current_user.id)   unless post.likes.where(user_id: current_user.id).present?
     respond_to do |format|
-      if @like.save
-        format.html { redirect_to posts_url, notice: "like was successfully added." }
-        format.json { head :no_content }
-    else
+      if @like.nil?
         format.html { redirect_to posts_url, notice: "already have been liked." }
         format.json { head :no_content }
+    else
+      format.html { redirect_to posts_url, notice: "like was successfully added." }
+      format.json { head :no_content }
       end
     end
   end

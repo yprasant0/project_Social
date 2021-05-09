@@ -19,6 +19,7 @@
         <td><%= link_to 'Show', comment %></td>
         <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
         <td><%= button_to 'Destroy', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, remote: :true %></td>
+        <td><%= link_to "Like", likes_comments_path(:comment => comment.id) %></td>
       </tr>
     <% end %>
   </tbody>

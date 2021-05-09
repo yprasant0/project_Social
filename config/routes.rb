@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :comments
+  resources :comments do
+    collection do
+      get :likes
+    end
+  end
   resources :posts do
     collection do
       get :likes

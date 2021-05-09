@@ -17,7 +17,7 @@
         <td><%= draft.attachment %></td>
         <td><%= draft.content %></td>
         <td><%= link_to 'Show', draft %></td>
-        <td><%= link_to 'Destroy', draft, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Destroy', draft_path(draft), method: :delete, data: { confirm: 'Are you sure?' }, remote: :true%></td>
         <td><%= link_to 'Edit', edit_draft_path(draft) %></td>
       </tr>
     <% end %>
