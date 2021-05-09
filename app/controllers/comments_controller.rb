@@ -53,8 +53,8 @@ class CommentsController < ApplicationController
   end
 
   def likes
-    post = Post.find_by(params[:post])   
-    @likes = post.likes.create(value: true)   unless post.like.present?
+    comment = Comment.find_by(params[:comment])   
+    @likes = comment.likes.create(value: true)   unless comment.like.present?
     respond_to do |format|
       if @like.save
         format.html { redirect_to posts_url, notice: "like was successfully added." }
