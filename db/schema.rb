@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_09_165554) do
+ActiveRecord::Schema.define(version: 2021_05_09_184014) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_05_09_165554) do
     t.boolean "visible", default: true
     t.string "video"
     t.string "image"
+    t.string "content_type"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
