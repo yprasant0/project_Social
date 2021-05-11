@@ -24,8 +24,7 @@
         <%end%>
         <td><%= link_to "New_coment", new_comment_path(:post => post.id) %></td>
         <td><%= link_to "all_coments", comments_path(:post => post.id) %></td>
-        <td><%= link_to "Like", likes_posts_path(:post => post.id) %></td>
-      </tr>
+        <%= link_to "Like", likes_posts_path, post: post.id class: 'btn btn-default', id: "like", remote: true %>
     <% end %>
   </tbody>
 </table>
@@ -35,4 +34,17 @@
 <%= link_to 'Draft', drafts_path %>
 <%= link_to 'New Post', new_post_path %>
 
+<script>
+$('#Like').on( "click", function() {
+  var u = $('#like').val()
 
+  $.ajax({
+    url: "/post/create",
+    type: "POST",
+    data: {
+      post_id: u
+    },
+    dataType: "json"
+  });
+})
+  </script>
